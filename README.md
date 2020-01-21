@@ -1,5 +1,8 @@
 # ReMixMatch
 
+Code for the paper: "[ReMixMatch: Semi-Supervised Learning with Distribution Alignment and Augmentation Anchoring](https://arxiv.org/abs/1911.09785)" by David Berthelot, Nicholas Carlini, Ekin D. Cubuk, Alex Kurakin, Kihyuk Sohn, Han Zhang, and Colin Raffel.
+
+
 This is not an officially supported Google product.
 
 ## Setup
@@ -61,7 +64,7 @@ export PYTHONPATH=$PYTHONPATH:.
 For example, training a remixmatch with 32 filters and 4 augmentations on cifar10 shuffled with `seed=3`, 250 labeled samples and 5000
 validation samples:
 ```bash
-CUDA_VISIBLE_DEVICES=0 python cta/cta_remixmatch.py --filters=32 --nu=4 --dataset=cifar10.3@250-5000 --w_match=1.5 --beta=0.75 --train_dir ~/experiments/remixmatch
+CUDA_VISIBLE_DEVICES=0 python cta/cta_remixmatch.py --filters=32 --K=4 --dataset=cifar10.3@250-5000 --w_match=1.5 --beta=0.75 --train_dir ./experiments/remixmatch
 ```
 
 Available labelled sizes are 40, 100, 250, 1000, 4000.
@@ -73,7 +76,7 @@ shuffled for gradient descent to work properly).
 #### Multi-GPU training
 Just pass more GPUs and remixmatch automatically scales to them, here we assign GPUs 4-7 to the program:
 ```bash
-CUDA_VISIBLE_DEVICES=4,5,6,7 python cta/cta_remixmatch.py --filters=32 --nu=4 --dataset=cifar10.3@250-5000 --w_match=1.5 --beta=0.75 --train_dir ~/experiments/remixmatch
+CUDA_VISIBLE_DEVICES=4,5,6,7 python cta/cta_remixmatch.py --filters=32 --K=4 --dataset=cifar10.3@250-5000 --w_match=1.5 --beta=0.75 --train_dir ./experiments/remixmatch
 ```
 
 ### Valid dataset names
@@ -104,7 +107,7 @@ You can point tensorboard to the training folder (by default it is `--train_dir=
 process:
 
 ```bash
-tensorboard.sh --port 6007 --logdir experiments/
+tensorboard.sh --port 6007 --logdir experiments
 ```
 
 ## Checkpoint accuracy
